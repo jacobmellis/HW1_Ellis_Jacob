@@ -11,3 +11,24 @@ knit: (function(input_file, encoding) {
 ---
 
 
+```{r}
+ny <- read.csv("New_York_City_Leading_Causes_of_Death.csv")
+ny_hd <- ny[which(ny$Cause.of.Death == "DISEASES OF HEART"),]
+
+library(ggplot2)
+#install.packages(ggthemes)
+library(ggthemes)
+
+plot <- ggplot(data = ny_hd, mapping = aes(x = Year, y = Percent, color = Ethnicity))
+plot <- plot + geom_line(aes(linetype = Sex))
+plot <- plot + theme_tufte(base_size = 13, base_family = "sans")
+plot <- plot + scale_y_continuous(limits = c(0, 50))
+plot <- plot + theme(legend.box = "horizontal", legend.position = c(.5, .25), 
+             legend.title = element_text(size = rel(0.7)), 
+             legend.text = element_text(size = rel(0.5)))
+plot + ggtitle("Percentage of Heart Disease Deaths in New York")
+```
+
+
+
+
